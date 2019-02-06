@@ -1,0 +1,17 @@
+print "\n***Generate starting data***"
+ab = load(e='Thesis_20180725',c='Thesis_20180725.1')
+ab=run(ab)
+ab = ab + run(ab,DS='-',IRS=1)
+ab = ab + run(ab('HB1'),c='Thesis_20180725.2')
+ab = ab + run(ab('HB2'),c='Thesis_20180725.2')
+ab = relabel(ab)
+
+save(ab,'Thesis_20180725')
+p = plot(ab)
+p.config(stability='true')
+#p.config(top_title='ab',stability='true',left_margin=100,right_margin=120)
+p.config(bifurcation_y=['x[3]'])
+#p.config(maxx=3.1)
+#p.config(minx=2.7)
+#p.config(maxy=1.02)
+#p.config(miny=0.55)

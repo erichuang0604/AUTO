@@ -1,0 +1,20 @@
+參考網站http://depts.washington.edu/bdecon/workshop2012/auto-tutorial/
+1. 跑Periodic solution要在plot的那邊按Max才會跑出來。
+2. Auto不會標HB1、HB2，要自己看
+3. 反正可以先跑一次stationary solution，然後再跑periodic solution。
+4. auto("Thesis_20180725.auto")
+5. The sign of PT, the point number, in fort.7 is used to indicate stability : ?? is stable , + is unstable.
+6. 如果要跑Bifurcation curve要先跑一次stationary solution然後再跑periodic solution，之後才可以跑雙變數的bifurcation，重點是ISW=2。
+Ex:
+ab = load(e='Thesis_20180801',c='Thesis_20180801.1')
+ab=run(ab)                                            <-----第一次
+ab = ab + run(ab,DS='-',IRS=1)
+ab = ab + run(ab('HB1'),c='Thesis_20180801.2')        <-----第二次
+ab = run(ab("HB1"),ICP=[1,4],ILP=0,ISW=2,NMX=  640)   <-----第三次
+ab = ab + run(ab,DS='-',NMX=  500)
+ab = relabel(ab)
+
+7. 要善用看範例，範例在C安裝auto的那個資料夾。
+8. 跑periodic solution可以不必去在重寫一次.c檔，可以直接在run裡面加。
+Ex:
+hb = run(ppp("HB2"),ICP=[1,4],ILP=0,ISW=2,NMX=100,RL1=0.58,DSMAX=0.1)
